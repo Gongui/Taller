@@ -7,7 +7,6 @@ Public Class MDIParent1
         Dim ChildForm As New Form1
         ' Conviértalo en un elemento secundario de este formulario MDI antes de mostrarlo.
         ChildForm.MdiParent = Me
-
         m_ChildFormNumber += 1
         ChildForm.Text = "Orden Objeto Nro " & m_ChildFormNumber
 
@@ -50,15 +49,16 @@ Public Class MDIParent1
     Private Sub CopyToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles CopyToolStripMenuItem.Click
         If ActiveMdiChild.Controls("Chb_Copiar_Orden").Tag = "SEL" Then
             Dim Texto As String = ""
+            Dim TempForm As Form1 = ActiveMdiChild
             Texto = "Ficha " & m_ChildFormNumber & Convert.ToChar(13) _
-                    & "Nro de orden: " & ActiveMdiChild.Controls("TabControl1").Controls("Tab_Gen").Controls("MTb_Norden").Text & Convert.ToChar(13) _
-                    & "Dominio: " & ActiveMdiChild.Controls("TabControl1").Controls("Tab_Gen").Controls("MTb_Dominio").Text & Convert.ToChar(13) _
-                    & "Propietario: " & ActiveMdiChild.Controls("TabControl1").Controls("Tab_Gen").Controls("Tb_Propietario").Text & Convert.ToChar(13) _
-                    & "Conductor: " & ActiveMdiChild.Controls("TabControl1").Controls("Tab_Gen").Controls("Cb_Conductor").Text & Convert.ToChar(13) _
-                    & "Fecha: " & ActiveMdiChild.Controls("TabControl1").Controls("Tab_Gen").Controls("DateTimePicker2").Text & Convert.ToChar(13) _
-                    & "Jefe de Taller: " & ActiveMdiChild.Controls("TabControl1").Controls("Tab_Gen").Controls("Cb_Jefe_taller").Text & Convert.ToChar(13) _
-                    & "Trabajo Solicitado: " & ActiveMdiChild.Controls("TabControl1").Controls("Tab_Rep").Controls("Tb_Trabajo_Sol").Text
-            For Each CBox In ActiveMdiChild.Controls("TabControl1").Controls("Tab_Rep").Controls("Gb_Prioridad").Controls
+                    & "Nro de orden: " & TempForm.MTb_NOrden.Text & Convert.ToChar(13) _
+                    & "Dominio: " & TempForm.MTb_Dominio.Text & Convert.ToChar(13) _
+                    & "Propietario: " & TempForm.Tb_Propietario.Text & Convert.ToChar(13) _
+                    & "Conductor: " & TempForm.Cb_Conductor.Text & Convert.ToChar(13) _
+                    & "Fecha: " & TempForm.DateTimePicker2.Text & Convert.ToChar(13) _
+                    & "Jefe de Taller: " & TempForm.Cb_Jefe_taller.Text & Convert.ToChar(13) _
+                    & "Trabajo Solicitado: " & TempForm.Tb_Trabajo_Sol.Text
+            For Each CBox In TempForm.Gb_Prioridad.Controls
                 If CBox.Checked Then
                     Texto = Texto & "Prioridad: " & CBox.Text
                 End If
@@ -142,9 +142,25 @@ Public Class MDIParent1
 
     Private Sub PrintDocument1_PrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
         Dim Texto As String = ""
+        Dim TempForm As Form1 = ActiveMdiChild
+        Texto = "Ficha " & m_ChildFormNumber & Convert.ToChar(13) _
+                & "Nro de orden: " & TempForm.MTb_NOrden.Text & Convert.ToChar(13) _
+                & "Dominio: " & TempForm.MTb_Dominio.Text & Convert.ToChar(13) _
+                & "Propietario: " & TempForm.Tb_Propietario.Text & Convert.ToChar(13) _
+                & "Conductor: " & TempForm.Cb_Conductor.Text & Convert.ToChar(13) _
+                & "Fecha: " & TempForm.DateTimePicker2.Text & Convert.ToChar(13) _
+                & "Jefe de Taller: " & TempForm.Cb_Jefe_taller.Text & Convert.ToChar(13) _
+                & "Trabajo Solicitado: " & TempForm.Tb_Trabajo_Sol.Text & Convert.ToChar(13)
+        Texto = Texto + "Trabajo realizado: " & Convert.ToChar(13)
+        For Each Row In TempForm.DataGridView1.Rows
+            Texto = Texto & "Reparacion: " & Row.Cells.Item(0).Value & Convert.ToChar(13) _
+             & "Mecanico: " & Row.Cells.Item(1).Value & Convert.ToChar(13) _
+             & "Horas empleadas: " & Row.Cells.Item(2).Value & Convert.ToChar(13)
+        Next
+        MsgBox(Texto)
         For Each formhijo As Form1 In Me.MdiChildren
             If Me.ActiveMdiChild.Text = formhijo.Text Then
-                e.Graphics.DrawString("Ejemplo de impresion: " & formhijo.MTb_NOrden.Text, New Font("Courier new", 24, FontStyle.Regular), Brushes.Black, 10, 10)
+                e.Graphics.DrawString(Texto, New Font("Courier new", 24, FontStyle.Regular), Brushes.Black, 10, 10)
             End If
         Next
     End Sub
