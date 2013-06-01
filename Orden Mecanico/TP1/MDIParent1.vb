@@ -117,8 +117,18 @@ Public Class MDIParent1
     End Sub
 
     Private Sub OptionsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OptionsToolStripMenuItem.Click
-        Opciones.MdiParent = Me
-        Opciones.Show()
+        If Opciones.ShowDialog = vbOK Then
+            My.Settings.Mecanicos.Clear()
+            For Each mecanico In Opciones.Lb_Mecanicos.Items
+                My.Settings.Mecanicos.Add(mecanico)
+            Next
+            My.Settings.Reparaciones.Clear()
+            My.Settings.Precios.Clear()
+            For Each Row In Opciones.DG_reparaciones.Rows
+                My.Settings.Reparaciones.Add(Row.Cells(0).Value)
+                My.Settings.Precios.Add(Row.Cells(1).Value)
+            Next
+        End If
     End Sub
 
     Private Sub PrintToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintToolStripButton.Click

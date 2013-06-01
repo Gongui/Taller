@@ -37,6 +37,17 @@
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Tag = ""
+        Dim ColumnaMecanicos As DataGridViewComboBoxColumn = DataGridView1.Columns(0)
+        ColumnaMecanicos.Items.Clear()
+        For Each Mec In My.Settings.Mecanicos
+            ColumnaMecanicos.Items.Add(Mec)
+        Next
+        Dim ColumnaReparaciones As DataGridViewComboBoxColumn = DataGridView1.Columns(1)
+        ColumnaReparaciones.Items.Clear()
+        For Each Rep In My.Settings.Reparaciones
+            ColumnaReparaciones.Items.Add(Rep)
+        Next
+
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Chb_Copiar_Orden.CheckedChanged
@@ -63,8 +74,8 @@
         DataGridView1.ShowRowErrors = True
         If DataGridView1.CurrentRow.Cells(0).Value = "" Or DataGridView1.CurrentRow.Cells(1).Value = "" Or DataGridView1.CurrentRow.Cells(2).Value = "" Then
             DataGridView1.CurrentRow.ErrorText = "El dato es obligatorio:"
-            e.Cancel = True
-            Label4.Text = "*Recuerde Que Todos Los Campos Deben Estar Completos A Excepcion De La Firma"
+            'e.Cancel = True
+            Label4.Text = "*Recuerde Que Todos Los Campos Deben Estar Completos"
             Label4.ForeColor = Color.Red
         End If
     End Sub
