@@ -40,6 +40,10 @@ Partial Class Form1
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Gb_Prioridad = New System.Windows.Forms.GroupBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Mecanico = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.Reparacion = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.Cargahoraria = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Fecha = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Tab_Gen = New System.Windows.Forms.TabPage()
         Me.MTb_NOrden = New System.Windows.Forms.MaskedTextBox()
@@ -54,10 +58,7 @@ Partial Class Form1
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.Chb_Copiar_Orden = New System.Windows.Forms.CheckBox()
-        Me.Fecha = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.Cargahoraria = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Reparacion = New System.Windows.Forms.DataGridViewComboBoxColumn()
-        Me.Mecanico = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.Bt_Imprimir = New System.Windows.Forms.Button()
         Me.Gb_Prioridad.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
@@ -232,6 +233,35 @@ Partial Class Form1
         Me.DataGridView1.Size = New System.Drawing.Size(643, 258)
         Me.DataGridView1.TabIndex = 21
         '
+        'Mecanico
+        '
+        Me.Mecanico.HeaderText = "Mecanico"
+        Me.Mecanico.Name = "Mecanico"
+        Me.Mecanico.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Mecanico.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
+        'Reparacion
+        '
+        Me.Reparacion.HeaderText = "Reparación"
+        Me.Reparacion.Items.AddRange(New Object() {"ee"})
+        Me.Reparacion.Name = "Reparacion"
+        Me.Reparacion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
+        'Cargahoraria
+        '
+        Me.Cargahoraria.FillWeight = 70.0!
+        Me.Cargahoraria.HeaderText = "Horas trabajadas"
+        Me.Cargahoraria.Name = "Cargahoraria"
+        '
+        'Fecha
+        '
+        Me.Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Fecha.HeaderText = "Fecha (dd/mm/aaaa)"
+        Me.Fecha.Name = "Fecha"
+        Me.Fecha.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Fecha.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Fecha.Width = 162
+        '
         'TabControl1
         '
         Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -318,6 +348,7 @@ Partial Class Form1
         '
         'Tab_Ent
         '
+        Me.Tab_Ent.Controls.Add(Me.Bt_Imprimir)
         Me.Tab_Ent.Controls.Add(Me.Label10)
         Me.Tab_Ent.Controls.Add(Me.GroupBox1)
         Me.Tab_Ent.Controls.Add(Me.DateTimePicker2)
@@ -389,34 +420,14 @@ Partial Class Form1
         Me.Chb_Copiar_Orden.Text = "<"
         Me.Chb_Copiar_Orden.UseVisualStyleBackColor = True
         '
-        'Fecha
+        'Bt_Imprimir
         '
-        Me.Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Fecha.HeaderText = "Fecha (dd/mm/aaaa)"
-        Me.Fecha.Name = "Fecha"
-        Me.Fecha.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Fecha.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.Fecha.Width = 162
-        '
-        'Cargahoraria
-        '
-        Me.Cargahoraria.FillWeight = 70.0!
-        Me.Cargahoraria.HeaderText = "Horas trabajadas"
-        Me.Cargahoraria.Name = "Cargahoraria"
-        '
-        'Reparacion
-        '
-        Me.Reparacion.HeaderText = "Reparación"
-        Me.Reparacion.Items.AddRange(New Object() {"ee"})
-        Me.Reparacion.Name = "Reparacion"
-        Me.Reparacion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        '
-        'Mecanico
-        '
-        Me.Mecanico.HeaderText = "Mecanico"
-        Me.Mecanico.Name = "Mecanico"
-        Me.Mecanico.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Mecanico.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Bt_Imprimir.Location = New System.Drawing.Point(562, 394)
+        Me.Bt_Imprimir.Name = "Bt_Imprimir"
+        Me.Bt_Imprimir.Size = New System.Drawing.Size(75, 23)
+        Me.Bt_Imprimir.TabIndex = 4
+        Me.Bt_Imprimir.Text = "Imprimir"
+        Me.Bt_Imprimir.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -481,5 +492,6 @@ Partial Class Form1
     Friend WithEvents Reparacion As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents Cargahoraria As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Fecha As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents Bt_Imprimir As System.Windows.Forms.Button
 
 End Class

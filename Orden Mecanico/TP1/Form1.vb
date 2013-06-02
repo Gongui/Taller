@@ -3,29 +3,33 @@
 
     Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Dim mensaje As String = "Falta completar lo siguientes campos:"
+        Dim t As String = ""
         If Me.Tag = "Alter" Then
             If MTb_NOrden.Text = "" Then
-                mensaje = mensaje + Convert.ToChar(13) + "  Número de orden"
+                t = t + Convert.ToChar(13) + "  Número de orden"
             End If
             If Cb_Jefe_taller.Text = "" Then
-                mensaje = mensaje + Convert.ToChar(13) + "  Jefe de taller"
+                t = t + Convert.ToChar(13) + "  Jefe de taller"
             End If
-            If Not MTb_Dominio.Text = "" Then
-                mensaje = mensaje + Convert.ToChar(13) + "  Dominio"
+            If MTb_Dominio.Text = "" Then
+                t = t + Convert.ToChar(13) + "  Dominio"
             End If
             If Tb_Propietario.Text = "" Then
-                mensaje = mensaje + Convert.ToChar(13) + "  Propietario"
+                t = t + Convert.ToChar(13) + "  Propietario"
             End If
             If Cb_Conductor.Text = "" Then
-                mensaje = mensaje + Convert.ToChar(13) + "  Conductor"
+                t = t + Convert.ToChar(13) + "  Conductor"
             End If
             If Tb_Trabajo_Sol.Text = "" Then
-                mensaje = mensaje + Convert.ToChar(13) + "  Trabajo Solicitado"
+                t = t + Convert.ToChar(13) + "  Trabajo Solicitado"
             End If
             If Not (Prior_Baja.Checked Or Prior_Media.Checked Or Prior_Alta.Checked) Then
-                mensaje = mensaje + Convert.ToChar(13) + "  Prioridad"
+                t = t + Convert.ToChar(13) + "  Prioridad"
             End If
-            MessageBox.Show(mensaje, "Error: Pantallazo azul inminente!!!")
+            If Not t = "" Then
+                mensaje += t
+                MessageBox.Show(mensaje, "Advertencia!")
+            End If
             Select Case MessageBox.Show("Desea guardar el archivo?", "Falta información!", MessageBoxButtons.YesNoCancel)
                 Case Windows.Forms.DialogResult.Yes
                 Case Windows.Forms.DialogResult.No
@@ -116,4 +120,15 @@
         Me.Tag = "Alter"
     End Sub
 
+    Private Sub Bt_Imprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Bt_Imprimir.Click
+        SendKeys.Send("^p")
+    End Sub
+
+    Private Sub MTb_NOrden_MaskInputRejected(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MaskInputRejectedEventArgs) Handles MTb_NOrden.MaskInputRejected
+        Me.Tag = "Alter"
+    End Sub
+
+    Private Sub MTb_Dominio_MaskInputRejected(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MaskInputRejectedEventArgs) Handles MTb_Dominio.MaskInputRejected
+        Me.Tag = "Alter"
+    End Sub
 End Class

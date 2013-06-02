@@ -43,37 +43,43 @@ Public Class MDIParent1
         'My.Computer.Clipboard.SetText(Me.ActiveMdiChild.ActiveControl.Text)
         'Me.ActiveMdiChild.ActiveControl.Text = ""
         ' Utilice My.Computer.Clipboard para insertar el texto o las imágenes seleccionadas en el Portapapeles
-        SendKeys.Send("^X")
+        SendKeys.Send("^x")
     End Sub
 
     Private Sub CopyToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles CopyToolStripMenuItem.Click
-        If ActiveMdiChild.Controls("Chb_Copiar_Orden").Tag = "SEL" Then
+        If ActiveMdiChild.Controls("Chb_Copiar_Orden").Tag = "Sel" Then
             Dim Texto As String = ""
             Dim TempForm As Form1 = ActiveMdiChild
-            Texto = "Ficha " & m_ChildFormNumber & Convert.ToChar(13) _
-                    & "Nro de orden: " & TempForm.MTb_NOrden.Text & Convert.ToChar(13) _
-                    & "Dominio: " & TempForm.MTb_Dominio.Text & Convert.ToChar(13) _
-                    & "Propietario: " & TempForm.Tb_Propietario.Text & Convert.ToChar(13) _
-                    & "Conductor: " & TempForm.Cb_Conductor.Text & Convert.ToChar(13) _
-                    & "Fecha: " & TempForm.DateTimePicker2.Text & Convert.ToChar(13) _
-                    & "Jefe de Taller: " & TempForm.Cb_Jefe_taller.Text & Convert.ToChar(13) _
-                    & "Trabajo Solicitado: " & TempForm.Tb_Trabajo_Sol.Text
+            Texto = "Ficha " & m_ChildFormNumber & vbCrLf _
+                    & "Nro de orden: " & TempForm.MTb_NOrden.Text & vbCrLf _
+                    & "Fecha: " & TempForm.DateTimePicker2.Text & vbCrLf _
+                    & "Dominio: " & TempForm.MTb_Dominio.Text & vbCrLf _
+                    & "Propietario: " & TempForm.Tb_Propietario.Text & vbCrLf _
+                    & "Conductor: " & TempForm.Cb_Conductor.Text & vbCrLf _
+                    & "Jefe de Taller: " & TempForm.Cb_Jefe_taller.Text & vbCrLf _
+                    & "Trabajo Solicitado: " & TempForm.Tb_Trabajo_Sol.Text & vbCrLf
             For Each CBox In TempForm.Gb_Prioridad.Controls
                 If CBox.Checked Then
-                    Texto = Texto & "Prioridad: " & CBox.Text
+                    Texto = Texto & "Prioridad: " & CBox.Text & vbCrLf
+                End If
+            Next
+            Texto = Texto & "Trabajos realizados:" & vbCrLf
+            For Each Row As DataGridViewRow In TempForm.DataGridView1.Rows
+                If Not Row.Cells(1).Value = "" Then
+                    Texto = Texto & " ".PadLeft(4) & Row.Cells(1).Value & vbCrLf
                 End If
             Next
             My.Computer.Clipboard.SetText(Texto)
 
         Else
-            SendKeys.Send("^C")
+            SendKeys.Send("^c")
         End If
         'My.Computer.Clipboard.SetText(Me.ActiveMdiChild.ActiveControl.Text)
         ' Utilice My.Computer.Clipboard para insertar el texto o las imágenes seleccionadas en el Portapapeles
     End Sub
 
     Private Sub PasteToolStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles PasteToolStripMenuItem.Click
-        SendKeys.Send("^V")
+        SendKeys.Send("^v")
         'Me.ActiveMdiChild.ActiveControl.Text = My.Computer.Clipboard.GetText()
         'Utilice My.Computer.Clipboard.GetText() o My.Computer.Clipboard.GetData para recuperar la información del Portapapeles.
     End Sub
@@ -132,7 +138,7 @@ Public Class MDIParent1
     End Sub
 
     Private Sub PrintToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintToolStripButton.Click
-
+        SendKeys.Send("^p")
     End Sub
 
     Private Sub PrintToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintToolStripMenuItem.Click
@@ -153,30 +159,50 @@ Public Class MDIParent1
     Private Sub PrintDocument1_PrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
         Dim Texto As String = ""
         Dim TempForm As Form1 = ActiveMdiChild
-        Texto = "Ficha " & m_ChildFormNumber & Convert.ToChar(13) _
-                & "Nro de orden: " & TempForm.MTb_NOrden.Text & Convert.ToChar(13) _
-                & "Dominio: " & TempForm.MTb_Dominio.Text & Convert.ToChar(13) _
-                & "Propietario: " & TempForm.Tb_Propietario.Text & Convert.ToChar(13) _
-                & "Conductor: " & TempForm.Cb_Conductor.Text & Convert.ToChar(13) _
-                & "Fecha: " & TempForm.DateTimePicker2.Text & Convert.ToChar(13) _
-                & "Jefe de Taller: " & TempForm.Cb_Jefe_taller.Text & Convert.ToChar(13) _
-                & "Trabajo Solicitado: " & TempForm.Tb_Trabajo_Sol.Text & Convert.ToChar(13)
-        Texto = Texto + "Trabajo realizado: " & Convert.ToChar(13)
-        For Each Row In TempForm.DataGridView1.Rows
-            Texto = Texto & "Reparacion: " & Row.Cells.Item(0).Value & Convert.ToChar(13) _
-             & "Mecanico: " & Row.Cells.Item(1).Value & Convert.ToChar(13) _
-             & "Horas empleadas: " & Row.Cells.Item(2).Value & Convert.ToChar(13)
-        Next
-        MsgBox(Texto)
-        For Each formhijo As Form1 In Me.MdiChildren
-            If Me.ActiveMdiChild.Text = formhijo.Text Then
-                e.Graphics.DrawString(Texto, New Font("Courier new", 24, FontStyle.Regular), Brushes.Black, 10, 10)
+        Texto = Texto & "Nro de orden: " & TempForm.MTb_NOrden.Text & vbNewLine _
+                & "Fecha: " & TempForm.DateTimePicker2.Value.Date & vbNewLine _
+                & "Dominio: " & TempForm.MTb_Dominio.Text & vbCrLf _
+                & "Propietario: " & TempForm.Tb_Propietario.Text & vbCrLf _
+                & "Conductor: " & TempForm.Cb_Conductor.Text & vbCrLf _
+                & "Jefe de Taller: " & TempForm.Cb_Jefe_taller.Text & vbCrLf _
+                & "Trabajo Solicitado: " & TempForm.Tb_Trabajo_Sol.Text & vbCrLf
+        For Each CBox In TempForm.Gb_Prioridad.Controls
+            If CBox.Checked Then
+                Texto = Texto & "Prioridad: " & CBox.Text & vbCrLf
             End If
         Next
+        Texto = Texto & "Trabajos realizados".PadRight(50) & "Precio".PadLeft(8) & vbCrLf
+        Dim i As Integer = 0
+        Dim suma As Integer = 0
+        For Each Row As DataGridViewRow In TempForm.DataGridView1.Rows
+            If Not Row.Cells(1).Value = "" Then
+                Texto = Texto & "  " & Row.Cells.Item(1).Value.PadRight(50) _
+                & "  $" & My.Settings.Precios(i).PadLeft(6) & vbCrLf
+                suma += My.Settings.Precios(i)
+                i += 1
+            End If
+        Next
+        Text = Texto & "Total: $" & suma & vbCrLf
+        For Each respuesta In TempForm.GroupBox1.Controls
+            If respuesta.Checked Then
+                Texto = Texto & "Recibi en conformidad: " & respuesta.Text
+            End If
+        Next
+        For Each formhijo As Form1 In Me.MdiChildren
+            If Me.ActiveMdiChild.Text = formhijo.Text Then
+                e.Graphics.DrawString(Texto, New Font("Courier new", 14, FontStyle.Regular), Brushes.Black, 10, 10)
+                e.Graphics.DrawString("Recibi en conformidad: ", New Font("Courier new", 14, FontStyle.Regular), Brushes.Black, 10, 400)
+            End If
+        Next
+
     End Sub
 
     Private Sub PrintPreviewToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintPreviewToolStripMenuItem.Click
         PrintPreviewDialog1.Document = PrintDocument1
         PrintPreviewDialog1.ShowDialog()
+    End Sub
+
+    Private Sub PrintPreviewToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintPreviewToolStripButton.Click
+        PrintPreviewToolStripMenuItem.PerformClick()
     End Sub
 End Class
