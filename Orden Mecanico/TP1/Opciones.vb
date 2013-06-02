@@ -14,7 +14,7 @@ Public Class Opciones
     End Sub
 
     Private Sub Agregar_Mec_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Bt_Agre_mec.Click
-        If Tb_nuevo_mec.Text <> "" Then
+        If Not Tb_nuevo_mec.Text = "" And Not Lb_Mecanicos.Items.Contains(Tb_nuevo_mec.Text) Then
             Lb_Mecanicos.Items.Add(Tb_nuevo_mec.Text)
         End If
     End Sub
@@ -27,6 +27,10 @@ Public Class Opciones
         Lb_Mecanicos.Items.Clear()
         For Each Mecanico In My.Settings.Mecanicos
             Lb_Mecanicos.Items.Add(Mecanico)
+        Next
+        Lb_jefesdetaller.Items.Clear()
+        For Each Jefe In My.Settings.Jefes
+            Lb_jefesdetaller.Items.Add(Jefe)
         Next
         DG_reparaciones.Rows.Clear()
         Dim i As Integer = 0
@@ -42,5 +46,15 @@ Public Class Opciones
             DG_reparaciones.Rows(i).Cells(1).Value = Price
             i += 1
         Next
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        If Not Tb_nuevo_jefe.Text = "" And Not Lb_jefesdetaller.Items.Contains(Tb_nuevo_jefe.Text) Then
+            Lb_jefesdetaller.Items.Add(Tb_nuevo_jefe.Text)
+        End If
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Lb_jefesdetaller.Items.Remove(Lb_jefesdetaller.SelectedItem)
     End Sub
 End Class

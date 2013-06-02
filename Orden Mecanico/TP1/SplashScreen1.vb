@@ -30,6 +30,8 @@
 
         'Información de Copyright
         Copyright.Text = My.Application.Info.Copyright
+        MDIParent1.Show()
+        Me.Close()
     End Sub
 
 End Class

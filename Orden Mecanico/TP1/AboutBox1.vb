@@ -23,4 +23,7 @@
         Me.Close()
     End Sub
 
+    Private Sub LogoPictureBox_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LogoPictureBox.Click
+
+    End Sub
 End Class

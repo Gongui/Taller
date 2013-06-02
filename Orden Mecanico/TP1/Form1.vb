@@ -5,9 +5,6 @@
         Dim mensaje As String = "Falta completar lo siguientes campos:"
         Dim t As String = ""
         If Me.Tag = "Alter" Then
-            If MTb_NOrden.Text = "" Then
-                t = t + Convert.ToChar(13) + "  Número de orden"
-            End If
             If Cb_Jefe_taller.Text = "" Then
                 t = t + Convert.ToChar(13) + "  Jefe de taller"
             End If
@@ -41,10 +38,15 @@
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.Tag = ""
+        Tb_Norden.Text = My.Settings.nro_orden.ToString.PadLeft(6, "0")
         Dim ColumnaMecanicos As DataGridViewComboBoxColumn = DataGridView1.Columns(0)
         ColumnaMecanicos.Items.Clear()
         For Each Mec In My.Settings.Mecanicos
             ColumnaMecanicos.Items.Add(Mec)
+        Next
+        Cb_Jefe_taller.Items.Clear()
+        For Each Jefe In My.Settings.Jefes
+            Cb_Jefe_taller.Items.Add(Jefe)
         Next
         Dim ColumnaReparaciones As DataGridViewComboBoxColumn = DataGridView1.Columns(1)
         ColumnaReparaciones.Items.Clear()
@@ -79,8 +81,8 @@
         If DataGridView1.CurrentRow.Cells(0).Value = "" Or DataGridView1.CurrentRow.Cells(1).Value = "" Or DataGridView1.CurrentRow.Cells(2).Value = "" Then
             DataGridView1.CurrentRow.ErrorText = "El dato es obligatorio:"
             'e.Cancel = True
-            Label4.Text = "*Recuerde Que Todos Los Campos Deben Estar Completos"
-            Label4.ForeColor = Color.Red
+            'Label4.Text = "*Recuerde Que Todos Los Campos Deben Estar Completos"
+            'Label4.ForeColor = Color.Red
         End If
     End Sub
 
@@ -124,7 +126,7 @@
         SendKeys.Send("^p")
     End Sub
 
-    Private Sub MTb_NOrden_MaskInputRejected(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MaskInputRejectedEventArgs) Handles MTb_NOrden.MaskInputRejected
+    Private Sub MTb_NOrden_MaskInputRejected(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MaskInputRejectedEventArgs)
         Me.Tag = "Alter"
     End Sub
 

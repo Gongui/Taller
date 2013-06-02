@@ -7,8 +7,8 @@ Public Class MDIParent1
         Dim ChildForm As New Form1
         ' Conviértalo en un elemento secundario de este formulario MDI antes de mostrarlo.
         ChildForm.MdiParent = Me
-        m_ChildFormNumber += 1
-        ChildForm.Text = "Orden Objeto Nro " & m_ChildFormNumber
+        My.Settings.nro_orden += 1
+        ChildForm.Text = "Orden Objeto Nro " & My.Settings.nro_orden
 
         ChildForm.Show()
     End Sub
@@ -50,9 +50,8 @@ Public Class MDIParent1
         If ActiveMdiChild.Controls("Chb_Copiar_Orden").Tag = "Sel" Then
             Dim Texto As String = ""
             Dim TempForm As Form1 = ActiveMdiChild
-            Texto = "Ficha " & m_ChildFormNumber & vbCrLf _
-                    & "Nro de orden: " & TempForm.MTb_NOrden.Text & vbCrLf _
-                    & "Fecha: " & TempForm.DateTimePicker2.Text & vbCrLf _
+            Texto = "Nro de orden: " & TempForm.Tb_Norden.Text & vbCrLf _
+                    & "Fecha: " & TempForm.DateTimePicker1.Value.Date & vbCrLf _
                     & "Dominio: " & TempForm.MTb_Dominio.Text & vbCrLf _
                     & "Propietario: " & TempForm.Tb_Propietario.Text & vbCrLf _
                     & "Conductor: " & TempForm.Cb_Conductor.Text & vbCrLf _
@@ -115,7 +114,6 @@ Public Class MDIParent1
         Next
     End Sub
 
-    Private m_ChildFormNumber As Integer
 
     Private Sub AboutToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AboutToolStripMenuItem.Click
         AboutBox1.MdiParent = Me
@@ -128,6 +126,10 @@ Public Class MDIParent1
             For Each mecanico In Opciones.Lb_Mecanicos.Items
                 My.Settings.Mecanicos.Add(mecanico)
             Next
+            My.Settings.Jefes.Clear()
+            For Each Jefe In Opciones.Lb_jefesdetaller.Items
+                My.Settings.Jefes.Add(Jefe)
+            Next
             My.Settings.Reparaciones.Clear()
             My.Settings.Precios.Clear()
             For Each Row In Opciones.DG_reparaciones.Rows
@@ -135,6 +137,29 @@ Public Class MDIParent1
                 My.Settings.Precios.Add(Row.Cells(1).Value)
             Next
         End If
+        'Vuelve a cargar los combobox "Jefes de Taller", "Reparaciones" y "Mecanicos" para cada form hijo
+        For Each FormHijo As Form1 In Me.MdiChildren
+            Dim ColumnaMecanicos As DataGridViewComboBoxColumn = FormHijo.DataGridView1.Columns(0)
+            ColumnaMecanicos.Items.Clear()
+            For Each Mec In My.Settings.Mecanicos
+                If Not Mec = "" Then
+                    ColumnaMecanicos.Items.Add(Mec)
+                End If
+            Next
+            FormHijo.Cb_Jefe_taller.Items.Clear()
+            For Each Jefe In My.Settings.Jefes
+                If Not Jefe = "" Then
+                    FormHijo.Cb_Jefe_taller.Items.Add(Jefe)
+                End If
+            Next
+            Dim ColumnaReparaciones As DataGridViewComboBoxColumn = FormHijo.DataGridView1.Columns(1)
+            ColumnaReparaciones.Items.Clear()
+            For Each Rep In My.Settings.Reparaciones
+                If Not Rep = "" Then
+                    ColumnaReparaciones.Items.Add(Rep)
+                End If
+            Next
+        Next
     End Sub
 
     Private Sub PrintToolStripButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintToolStripButton.Click
@@ -159,42 +184,41 @@ Public Class MDIParent1
     Private Sub PrintDocument1_PrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
         Dim Texto As String = ""
         Dim TempForm As Form1 = ActiveMdiChild
-        Texto = Texto & "Nro de orden: " & TempForm.MTb_NOrden.Text & vbNewLine _
-                & "Fecha: " & TempForm.DateTimePicker2.Value.Date & vbNewLine _
-                & "Dominio: " & TempForm.MTb_Dominio.Text & vbCrLf _
-                & "Propietario: " & TempForm.Tb_Propietario.Text & vbCrLf _
-                & "Conductor: " & TempForm.Cb_Conductor.Text & vbCrLf _
-                & "Jefe de Taller: " & TempForm.Cb_Jefe_taller.Text & vbCrLf _
-                & "Trabajo Solicitado: " & TempForm.Tb_Trabajo_Sol.Text & vbCrLf
+        Dim Fuente As New Font("Courier new", 14, FontStyle.Regular)
+        e.Graphics.DrawString("Fecha de Recepción: " & TempForm.DateTimePicker1.Value.Date, Fuente, Brushes.Black, 450, 10)
+        Texto = "Nro de orden: " & TempForm.Tb_Norden.Text & vbNewLine & vbNewLine _
+                & "Propietario: " & TempForm.Tb_Propietario.Text & vbNewLine & vbNewLine _
+                & "Conductor: " & TempForm.Cb_Conductor.Text & vbNewLine & vbNewLine _
+                & "Fecha de Entrega: " & TempForm.DateTimePicker2.Value.Date
+        e.Graphics.DrawString(Texto, Fuente, Brushes.Black, 10, 10)
+        Texto = "Dominio: " & TempForm.MTb_Dominio.Text & vbNewLine & vbNewLine _
+                & "Jefe de Taller: " & TempForm.Cb_Jefe_taller.Text & vbNewLine & vbNewLine
+        e.Graphics.DrawString(Texto, Fuente, Brushes.Black, 450, 50)
         For Each CBox In TempForm.Gb_Prioridad.Controls
             If CBox.Checked Then
-                Texto = Texto & "Prioridad: " & CBox.Text & vbCrLf
+                e.Graphics.DrawString("Prioridad: " & CBox.Text, Fuente, Brushes.Black, 450, 140)
             End If
         Next
-        Texto = Texto & "Trabajos realizados".PadRight(50) & "Precio".PadLeft(8) & vbCrLf
+        e.Graphics.DrawString("Trabajos Realizados", Fuente, Brushes.Black, 10, 190)
+        e.Graphics.DrawString("Precio", Fuente, Brushes.Black, 560, 190)
         Dim i As Integer = 0
         Dim suma As Integer = 0
         For Each Row As DataGridViewRow In TempForm.DataGridView1.Rows
             If Not Row.Cells(1).Value = "" Then
-                Texto = Texto & "  " & Row.Cells.Item(1).Value.PadRight(50) _
-                & "  $" & My.Settings.Precios(i).PadLeft(6) & vbCrLf
+                e.Graphics.DrawString(Row.Cells.Item(1).Value, Fuente, Brushes.Black, 10, 220 + i * 36)
+                e.Graphics.DrawString("$" & My.Settings.Precios(i), Fuente, Brushes.Black, 560, 220 + i * 36)
                 suma += My.Settings.Precios(i)
                 i += 1
             End If
         Next
-        Text = Texto & "Total: $" & suma & vbCrLf
+        e.Graphics.DrawString("Total: $" & suma, Fuente, Brushes.Black, 10, 220 + (i + 1) * 36)
+        e.Graphics.DrawString("Trabajo Solicitado: " & TempForm.Tb_Trabajo_Sol.Text, Fuente, Brushes.Black, 10, 220 + (i + 2) * 36)
         For Each respuesta In TempForm.GroupBox1.Controls
             If respuesta.Checked Then
-                Texto = Texto & "Recibi en conformidad: " & respuesta.Text
+                e.Graphics.DrawString("Recibi en conformidad: " & respuesta.Text, Fuente, Brushes.Black, 10, 900)
             End If
         Next
-        For Each formhijo As Form1 In Me.MdiChildren
-            If Me.ActiveMdiChild.Text = formhijo.Text Then
-                e.Graphics.DrawString(Texto, New Font("Courier new", 14, FontStyle.Regular), Brushes.Black, 10, 10)
-                e.Graphics.DrawString("Recibi en conformidad: ", New Font("Courier new", 14, FontStyle.Regular), Brushes.Black, 10, 400)
-            End If
-        Next
-
+        e.Graphics.DrawString("Firma: ", Fuente, Brushes.Black, 500, 900)
     End Sub
 
     Private Sub PrintPreviewToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintPreviewToolStripMenuItem.Click

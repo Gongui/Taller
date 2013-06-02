@@ -28,18 +28,24 @@ Partial Class Opciones
         Me.Cancel_Button = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.Bt_Elim_mec = New System.Windows.Forms.Button()
         Me.Lb_Mecanicos = New System.Windows.Forms.ListBox()
+        Me.Bt_Elim_mec = New System.Windows.Forms.Button()
         Me.Bt_Agre_mec = New System.Windows.Forms.Button()
         Me.Tb_nuevo_mec = New System.Windows.Forms.TextBox()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Lb_jefesdetaller = New System.Windows.Forms.ListBox()
+        Me.Tb_nuevo_jefe = New System.Windows.Forms.TextBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.DG_reparaciones = New System.Windows.Forms.DataGridView()
-        Me.MyApplicationBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Reparacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Precio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MyApplicationBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         CType(Me.DG_reparaciones, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MyApplicationBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,6 +89,7 @@ Partial Class Opciones
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Location = New System.Drawing.Point(1, 2)
         Me.TabControl1.Name = "TabControl1"
@@ -92,8 +99,8 @@ Partial Class Opciones
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.Bt_Elim_mec)
         Me.TabPage1.Controls.Add(Me.Lb_Mecanicos)
+        Me.TabPage1.Controls.Add(Me.Bt_Elim_mec)
         Me.TabPage1.Controls.Add(Me.Bt_Agre_mec)
         Me.TabPage1.Controls.Add(Me.Tb_nuevo_mec)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
@@ -104,6 +111,14 @@ Partial Class Opciones
         Me.TabPage1.Text = "Mecanicos"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'Lb_Mecanicos
+        '
+        Me.Lb_Mecanicos.FormattingEnabled = True
+        Me.Lb_Mecanicos.Location = New System.Drawing.Point(8, 33)
+        Me.Lb_Mecanicos.Name = "Lb_Mecanicos"
+        Me.Lb_Mecanicos.Size = New System.Drawing.Size(498, 238)
+        Me.Lb_Mecanicos.TabIndex = 4
+        '
         'Bt_Elim_mec
         '
         Me.Bt_Elim_mec.Location = New System.Drawing.Point(513, 129)
@@ -112,14 +127,6 @@ Partial Class Opciones
         Me.Bt_Elim_mec.TabIndex = 3
         Me.Bt_Elim_mec.Text = "Quitar"
         Me.Bt_Elim_mec.UseVisualStyleBackColor = True
-        '
-        'Lb_Mecanicos
-        '
-        Me.Lb_Mecanicos.FormattingEnabled = True
-        Me.Lb_Mecanicos.Location = New System.Drawing.Point(8, 33)
-        Me.Lb_Mecanicos.Name = "Lb_Mecanicos"
-        Me.Lb_Mecanicos.Size = New System.Drawing.Size(499, 238)
-        Me.Lb_Mecanicos.TabIndex = 2
         '
         'Bt_Agre_mec
         '
@@ -134,8 +141,55 @@ Partial Class Opciones
         '
         Me.Tb_nuevo_mec.Location = New System.Drawing.Point(7, 6)
         Me.Tb_nuevo_mec.Name = "Tb_nuevo_mec"
-        Me.Tb_nuevo_mec.Size = New System.Drawing.Size(500, 20)
+        Me.Tb_nuevo_mec.Size = New System.Drawing.Size(499, 20)
         Me.Tb_nuevo_mec.TabIndex = 0
+        '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.Lb_jefesdetaller)
+        Me.TabPage3.Controls.Add(Me.Tb_nuevo_jefe)
+        Me.TabPage3.Controls.Add(Me.Button2)
+        Me.TabPage3.Controls.Add(Me.Button1)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(604, 276)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Jefes de Taller"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'Lb_jefesdetaller
+        '
+        Me.Lb_jefesdetaller.FormattingEnabled = True
+        Me.Lb_jefesdetaller.Location = New System.Drawing.Point(8, 33)
+        Me.Lb_jefesdetaller.Name = "Lb_jefesdetaller"
+        Me.Lb_jefesdetaller.Size = New System.Drawing.Size(489, 238)
+        Me.Lb_jefesdetaller.TabIndex = 3
+        '
+        'Tb_nuevo_jefe
+        '
+        Me.Tb_nuevo_jefe.Location = New System.Drawing.Point(8, 6)
+        Me.Tb_nuevo_jefe.Name = "Tb_nuevo_jefe"
+        Me.Tb_nuevo_jefe.Size = New System.Drawing.Size(489, 20)
+        Me.Tb_nuevo_jefe.TabIndex = 2
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(503, 149)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(91, 23)
+        Me.Button2.TabIndex = 1
+        Me.Button2.Text = "Quitar"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(503, 6)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(91, 23)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Agregar"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
@@ -159,10 +213,6 @@ Partial Class Opciones
         Me.DG_reparaciones.Size = New System.Drawing.Size(598, 270)
         Me.DG_reparaciones.TabIndex = 0
         '
-        'MyApplicationBindingSource
-        '
-        Me.MyApplicationBindingSource.DataSource = GetType(WindowsApplication1.My.MyApplication)
-        '
         'Reparacion
         '
         Me.Reparacion.HeaderText = "Reparación"
@@ -173,6 +223,10 @@ Partial Class Opciones
         '
         Me.Precio.HeaderText = "Precio"
         Me.Precio.Name = "Precio"
+        '
+        'MyApplicationBindingSource
+        '
+        Me.MyApplicationBindingSource.DataSource = GetType(WindowsApplication1.My.MyApplication)
         '
         'Opciones
         '
@@ -194,6 +248,8 @@ Partial Class Opciones
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         CType(Me.DG_reparaciones, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MyApplicationBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
@@ -205,7 +261,6 @@ Partial Class Opciones
     Friend WithEvents Cancel_Button As System.Windows.Forms.Button
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
-    Friend WithEvents Lb_Mecanicos As System.Windows.Forms.ListBox
     Friend WithEvents Bt_Agre_mec As System.Windows.Forms.Button
     Friend WithEvents Tb_nuevo_mec As System.Windows.Forms.TextBox
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
@@ -214,5 +269,11 @@ Partial Class Opciones
     Friend WithEvents MyApplicationBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents Reparacion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Precio As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Lb_Mecanicos As System.Windows.Forms.ListBox
+    Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
+    Friend WithEvents Lb_jefesdetaller As System.Windows.Forms.ListBox
+    Friend WithEvents Tb_nuevo_jefe As System.Windows.Forms.TextBox
+    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

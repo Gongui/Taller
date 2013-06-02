@@ -46,19 +46,19 @@ Partial Class Form1
         Me.Fecha = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Tab_Gen = New System.Windows.Forms.TabPage()
-        Me.MTb_NOrden = New System.Windows.Forms.MaskedTextBox()
         Me.MTb_Dominio = New System.Windows.Forms.MaskedTextBox()
         Me.Cb_Conductor = New System.Windows.Forms.ComboBox()
         Me.Tab_Rep = New System.Windows.Forms.TabPage()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Tab_Ent = New System.Windows.Forms.TabPage()
+        Me.Bt_Imprimir = New System.Windows.Forms.Button()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.Chb_Copiar_Orden = New System.Windows.Forms.CheckBox()
-        Me.Bt_Imprimir = New System.Windows.Forms.Button()
+        Me.Tb_Norden = New System.Windows.Forms.TextBox()
         Me.Gb_Prioridad.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
@@ -111,13 +111,13 @@ Partial Class Form1
         Me.Prior_Baja.Name = "Prior_Baja"
         Me.Prior_Baja.Size = New System.Drawing.Size(46, 17)
         Me.Prior_Baja.TabIndex = 7
-        Me.Prior_Baja.TabStop = True
         Me.Prior_Baja.Text = "Baja"
         Me.Prior_Baja.UseVisualStyleBackColor = True
         '
         'Prior_Media
         '
         Me.Prior_Media.AutoSize = True
+        Me.Prior_Media.Checked = True
         Me.Prior_Media.Location = New System.Drawing.Point(124, 19)
         Me.Prior_Media.Name = "Prior_Media"
         Me.Prior_Media.Size = New System.Drawing.Size(54, 17)
@@ -133,7 +133,6 @@ Partial Class Form1
         Me.Prior_Alta.Name = "Prior_Alta"
         Me.Prior_Alta.Size = New System.Drawing.Size(43, 17)
         Me.Prior_Alta.TabIndex = 9
-        Me.Prior_Alta.TabStop = True
         Me.Prior_Alta.Text = "Alta"
         Me.Prior_Alta.UseVisualStyleBackColor = True
         '
@@ -278,7 +277,7 @@ Partial Class Form1
         '
         'Tab_Gen
         '
-        Me.Tab_Gen.Controls.Add(Me.MTb_NOrden)
+        Me.Tab_Gen.Controls.Add(Me.Tb_Norden)
         Me.Tab_Gen.Controls.Add(Me.MTb_Dominio)
         Me.Tab_Gen.Controls.Add(Me.Cb_Conductor)
         Me.Tab_Gen.Controls.Add(Me.DateTimePicker1)
@@ -295,16 +294,8 @@ Partial Class Form1
         Me.Tab_Gen.Padding = New System.Windows.Forms.Padding(3)
         Me.Tab_Gen.Size = New System.Drawing.Size(659, 436)
         Me.Tab_Gen.TabIndex = 0
-        Me.Tab_Gen.Text = "General"
+        Me.Tab_Gen.Text = "Recepción"
         Me.Tab_Gen.UseVisualStyleBackColor = True
-        '
-        'MTb_NOrden
-        '
-        Me.MTb_NOrden.Location = New System.Drawing.Point(7, 35)
-        Me.MTb_NOrden.Mask = "999999"
-        Me.MTb_NOrden.Name = "MTb_NOrden"
-        Me.MTb_NOrden.Size = New System.Drawing.Size(299, 20)
-        Me.MTb_NOrden.TabIndex = 36
         '
         'MTb_Dominio
         '
@@ -360,6 +351,15 @@ Partial Class Form1
         Me.Tab_Ent.Text = "Entrega"
         Me.Tab_Ent.UseVisualStyleBackColor = True
         '
+        'Bt_Imprimir
+        '
+        Me.Bt_Imprimir.Location = New System.Drawing.Point(562, 394)
+        Me.Bt_Imprimir.Name = "Bt_Imprimir"
+        Me.Bt_Imprimir.Size = New System.Drawing.Size(75, 23)
+        Me.Bt_Imprimir.TabIndex = 4
+        Me.Bt_Imprimir.Text = "Imprimir"
+        Me.Bt_Imprimir.UseVisualStyleBackColor = True
+        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -387,13 +387,13 @@ Partial Class Form1
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(39, 17)
         Me.RadioButton2.TabIndex = 1
-        Me.RadioButton2.TabStop = True
         Me.RadioButton2.Text = "No"
         Me.RadioButton2.UseVisualStyleBackColor = True
         '
         'RadioButton1
         '
         Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Checked = True
         Me.RadioButton1.Location = New System.Drawing.Point(19, 21)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.Size = New System.Drawing.Size(34, 17)
@@ -420,14 +420,13 @@ Partial Class Form1
         Me.Chb_Copiar_Orden.Text = "<"
         Me.Chb_Copiar_Orden.UseVisualStyleBackColor = True
         '
-        'Bt_Imprimir
+        'Tb_Norden
         '
-        Me.Bt_Imprimir.Location = New System.Drawing.Point(562, 394)
-        Me.Bt_Imprimir.Name = "Bt_Imprimir"
-        Me.Bt_Imprimir.Size = New System.Drawing.Size(75, 23)
-        Me.Bt_Imprimir.TabIndex = 4
-        Me.Bt_Imprimir.Text = "Imprimir"
-        Me.Bt_Imprimir.UseVisualStyleBackColor = True
+        Me.Tb_Norden.Location = New System.Drawing.Point(7, 35)
+        Me.Tb_Norden.Name = "Tb_Norden"
+        Me.Tb_Norden.ReadOnly = True
+        Me.Tb_Norden.Size = New System.Drawing.Size(299, 20)
+        Me.Tb_Norden.TabIndex = 37
         '
         'Form1
         '
@@ -482,7 +481,6 @@ Partial Class Form1
     Friend WithEvents Chb_Copiar_Orden As System.Windows.Forms.CheckBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents MTb_Dominio As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents MTb_NOrden As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
@@ -493,5 +491,6 @@ Partial Class Form1
     Friend WithEvents Cargahoraria As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Fecha As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents Bt_Imprimir As System.Windows.Forms.Button
+    Friend WithEvents Tb_Norden As System.Windows.Forms.TextBox
 
 End Class
